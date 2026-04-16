@@ -88,7 +88,7 @@ export function Footer() {
             <div className="rounded-[2rem] border border-white/10 bg-white/5 p-7">
               <div className="flex items-center gap-3">
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/12 bg-white/8 p-1.5">
-                  <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
+                  <img src="/favicon.png?v=20260416" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
                 </div>
                 <div>
                   <p className="text-lg font-semibold">{SITE_CONFIG.name}</p>
@@ -173,34 +173,64 @@ export function Footer() {
     )
   }
 
+  const sectionHeading = (key: 'platform' | 'company' | 'resources' | 'legal') =>
+    key === 'platform' ? 'Discover' : key === 'company' ? 'Company' : key === 'resources' ? 'Resources' : 'Legal'
+
   return (
-    <footer className="border-t border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] text-slate-950">
+    <footer className="border-t border-[#e8ded1] bg-[linear-gradient(180deg,#faf8f6_0%,#f0ece8_100%)] text-[#1a1a1a]">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="grid gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr_0.8fr]">
+        <div className="rounded-[2rem] bg-[linear-gradient(135deg,#1B3022_0%,#2a3d30_48%,#3d4a3a_100%)] p-8 text-white shadow-[0_24px_60px_rgba(27,48,34,0.28)] sm:p-10">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#D4AF37]/90">Stay in the loop</p>
+              <h3 className="mt-3 max-w-lg text-2xl font-semibold tracking-[-0.03em] sm:text-3xl">Curated updates, new spotlights, and the best of the community—without the noise.</h3>
+            </div>
+            <form action="/register" className="flex w-full max-w-md flex-col gap-3 sm:flex-row sm:items-center">
+              <label htmlFor="footer-email" className="sr-only">
+                Email
+              </label>
+              <input
+                id="footer-email"
+                name="email"
+                type="email"
+                placeholder="Your email"
+                className="h-12 flex-1 rounded-full border border-white/25 bg-white/10 px-5 text-sm text-white placeholder:text-white/50 outline-none focus:border-[#D4AF37]/60"
+              />
+              <button
+                type="submit"
+                className="h-12 shrink-0 rounded-full border border-[#D4AF37]/50 bg-[#D4AF37] px-6 text-sm font-semibold text-[#1B3022] transition hover:bg-[#c9a94a]"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div className="mt-12 grid gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr_0.8fr]">
           <div>
             <Link href="/" className="flex items-center gap-3">
-              <div className="h-11 w-11 overflow-hidden rounded-2xl border border-slate-200 bg-white p-1 shadow-sm">
-                <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="44" height="44" className="h-full w-full object-contain" />
+              <div className="h-11 w-11 overflow-hidden rounded-[1.15rem] border border-[#e5ddd4] bg-white p-1 shadow-sm">
+                <img src="/favicon.png?v=20260416" alt={`${SITE_CONFIG.name} logo`} width="44" height="44" className="h-full w-full object-contain" />
               </div>
               <div>
                 <span className="block text-lg font-semibold">{SITE_CONFIG.name}</span>
-                <span className="text-xs uppercase tracking-[0.22em] text-slate-500">{siteContent.footer.tagline}</span>
+                <span className="text-xs uppercase tracking-[0.22em] text-[#6b6560]">{siteContent.footer.tagline}</span>
               </div>
             </Link>
-            <p className="mt-5 max-w-sm text-sm leading-7 text-slate-600">{SITE_CONFIG.description}</p>
+            <p className="mt-5 max-w-sm text-sm leading-7 text-[#5c5652]">{SITE_CONFIG.description}</p>
           </div>
           {(['platform', 'company', 'resources', 'legal'] as const).map((section) => (
             <div key={section}>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">{section}</h3>
-              <ul className="mt-5 space-y-3 text-sm text-slate-600">
+              <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-[#1B3022]/80">{sectionHeading(section)}</h3>
+              <ul className="mt-5 space-y-3 text-sm text-[#5c5652]">
                 {footerLinks[section].map((item: any) => (
-                  <li key={item.name}><Link href={item.href} className="flex items-center gap-2 hover:text-slate-950">{item.icon ? <item.icon className="h-4 w-4" /> : null}{item.name}</Link></li>
+                  <li key={item.name}><Link href={item.href} className="flex items-center gap-2 transition hover:text-[#1a1a1a]">{item.icon ? <item.icon className="h-4 w-4" /> : null}{item.name}</Link></li>
                 ))}
               </ul>
             </div>
           ))}
         </div>
-        <div className="mt-12 border-t border-slate-200 pt-6 text-center text-sm text-slate-500">&copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.</div>
+        <div className="mt-12 border-t border-[#e8ded1] pt-6 text-center text-sm text-[#6b6560]">&copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.</div>
       </div>
     </footer>
   )

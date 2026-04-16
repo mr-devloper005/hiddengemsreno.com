@@ -37,4 +37,13 @@ export const BRAND_PACKS: Record<BrandPack['key'], BrandPack> = {
     surfaceClassName: 'factory-surface-market',
     accentClassName: 'factory-accent-market',
   },
+  'soft-minimal': {
+    key: 'soft-minimal',
+    displayName: 'Soft Minimal Gallery',
+    bodyClassName: 'factory-brand-soft-minimal',
+    fontClassName: 'factory-font-soft-minimal',
+    paletteClassName: 'factory-palette-soft-minimal',
+    surfaceClassName: 'factory-surface-soft-minimal',
+    accentClassName: 'factory-accent-soft-minimal',
+  },
 }

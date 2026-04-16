@@ -11,6 +11,7 @@ import { SITE_CONFIG, type TaskKey } from '@/lib/site-config'
 import { cn } from '@/lib/utils'
 import { siteContent } from '@/config/site.content'
 import { getFactoryState } from '@/design/factory/get-factory-state'
+import { getProductKind } from '@/design/factory/get-product-kind'
 import { NAVBAR_OVERRIDE_ENABLED, NavbarOverride } from '@/overrides/navbar'
 
 const NavbarAuthControls = dynamic(() => import('@/components/shared/navbar-auth-controls').then((mod) => mod.NavbarAuthControls), {
@@ -33,12 +34,12 @@ const taskIcons: Record<TaskKey, any> = {
 
 const variantClasses = {
   'compact-bar': {
-    shell: 'border-b border-slate-200/80 bg-white/88 text-slate-950 backdrop-blur-xl',
-    logo: 'rounded-2xl border border-slate-200 bg-white shadow-sm',
-    active: 'bg-slate-950 text-white',
-    idle: 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
-    cta: 'rounded-full bg-slate-950 text-white hover:bg-slate-800',
-    mobile: 'border-t border-slate-200/70 bg-white/95',
+    shell: 'border-b border-[#e8ded1]/80 bg-[#f5f5f5]/92 text-[#1a1a1a] backdrop-blur-xl',
+    logo: 'rounded-[1.35rem] border border-[#e5ddd4] bg-white shadow-[0_8px_30px_rgba(26,26,26,0.06)]',
+    active: 'bg-[#1a1a1a] text-white',
+    idle: 'text-[#5c5652] hover:bg-[#ebe6e0] hover:text-[#1a1a1a]',
+    cta: 'rounded-full bg-[#1a1a1a] text-white hover:bg-[#2d2d2d]',
+    mobile: 'border-t border-[#e8ded1] bg-[#faf8f6]/98',
   },
   'editorial-bar': {
     shell: 'border-b border-[#d7c4b3] bg-[#fff7ee]/90 text-[#2f1d16] backdrop-blur-xl',
@@ -96,8 +97,17 @@ export function Navbar() {
   const pathname = usePathname()
   const { isAuthenticated } = useAuth()
   const { recipe } = getFactoryState()
+  const productKind = getProductKind(recipe)
 
-  const navigation = useMemo(() => SITE_CONFIG.tasks.filter((task) => task.enabled && task.key !== 'profile'), [])
+  const navigation = useMemo(
+    () =>
+      SITE_CONFIG.tasks.filter((task) => {
+        if (!task.enabled) return false
+        if (task.key === 'profile' && productKind !== 'visual') return false
+        return true
+      }),
+    [productKind],
+  )
   const primaryNavigation = navigation.slice(0, 5)
   const mobileNavigation = navigation.map((task) => ({
     name: task.label,
@@ -116,7 +126,7 @@ export function Navbar() {
           <div className="flex min-w-0 items-center gap-4">
             <Link href="/" className="flex shrink-0 items-center gap-3">
               <div className={cn('flex h-12 w-12 items-center justify-center overflow-hidden p-1.5', palette.logo)}>
-                <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
+                <img src="/favicon.png?v=20260416" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
               </div>
               <div className="min-w-0 hidden sm:block">
                 <span className="block truncate text-xl font-semibold">{SITE_CONFIG.name}</span>
@@ -139,7 +149,7 @@ export function Navbar() {
           <div className="hidden min-w-0 flex-1 items-center justify-center lg:flex">
             <div className={cn('flex w-full max-w-xl items-center gap-3 rounded-full px-4 py-3', palette.search)}>
               <Search className="h-4 w-4" />
-              <span className="text-sm">Find businesses, spaces, and local services</span>
+              <span className="text-sm">{siteContent.hero.searchPlaceholder}</span>
               <div className="ml-auto hidden items-center gap-1 text-xs opacity-75 md:flex">
                 <MapPin className="h-3.5 w-3.5" />
                 Local discovery
@@ -165,7 +175,7 @@ export function Navbar() {
                 <Button size="sm" asChild className={cn('rounded-full', palette.cta)}>
                   <Link href="/register">
                     <Plus className="mr-1 h-4 w-4" />
-                    Add Listing
+                    Join
                   </Link>
                 </Button>
               </div>
@@ -182,7 +192,7 @@ export function Navbar() {
             <div className="space-y-2 px-4 py-4">
               <div className={cn('mb-3 flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium', palette.search)}>
                 <Search className="h-4 w-4" />
-                Find businesses, spaces, and services
+                {siteContent.hero.searchPlaceholder}
               </div>
               {mobileNavigation.map((item) => {
                 const isActive = pathname.startsWith(item.href)
@@ -211,7 +221,7 @@ export function Navbar() {
         <div className="flex min-w-0 flex-1 items-center gap-4 lg:gap-7">
           <Link href="/" className="flex shrink-0 items-center gap-3 whitespace-nowrap pr-2">
             <div className={cn('flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden p-1.5', style.logo)}>
-              <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
+              <img src="/favicon.png?v=20260416" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
             </div>
             <div className="min-w-0 hidden sm:block">
               <span className="block truncate text-xl font-semibold">{SITE_CONFIG.name}</span>
@@ -295,7 +305,7 @@ export function Navbar() {
                 <Link href="/login">Sign In</Link>
               </Button>
               <Button size="sm" asChild className={style.cta}>
-                <Link href="/register">{isEditorial ? 'Subscribe' : isUtility ? 'Post Now' : 'Get Started'}</Link>
+                <Link href="/register">{isEditorial ? 'Subscribe' : isUtility ? 'Post Now' : productKind === 'visual' ? 'Join' : 'Get Started'}</Link>
               </Button>
             </div>
           )}
@@ -305,6 +315,40 @@ export function Navbar() {
           </Button>
         </div>
       </nav>
+
+      {productKind === 'visual' && recipe.navbar === 'compact-bar' ? (
+        <div className="mx-auto hidden max-w-7xl border-t border-[#e8ded1]/70 sm:px-6 lg:block lg:px-8">
+          <div className="flex flex-wrap items-center gap-2 px-4 py-3 sm:px-0">
+            <Link
+              href="/search"
+              className="mr-1 flex min-w-[220px] flex-1 items-center gap-2 rounded-full border border-[#e5ddd4] bg-white px-4 py-2.5 text-sm text-muted-foreground shadow-[0_6px_24px_rgba(26,26,26,0.05)] transition hover:border-[#d9c5c1]"
+            >
+              <Search className="h-4 w-4 shrink-0 opacity-70" />
+              <span className="truncate">{siteContent.hero.searchPlaceholder}</span>
+            </Link>
+            {[
+              { label: 'Photography', href: '/images' },
+              { label: 'Illustration', href: '/images' },
+              { label: 'UI & product', href: '/images' },
+              { label: 'Creators', href: '/profile' },
+            ].map((pill) => {
+              const active = pathname === pill.href || pathname.startsWith(`${pill.href}/`)
+              return (
+                <Link
+                  key={pill.label}
+                  href={pill.href}
+                  className={cn(
+                    'rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors',
+                    active ? 'border-[#1a1a1a] bg-[#1a1a1a] text-white' : 'border-[#e5ddd4] bg-white text-[#1a1a1a] hover:border-[#d9c5c1]',
+                  )}
+                >
+                  {pill.label}
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+      ) : null}
 
       {isFloating && primaryTask ? (
         <div className="mx-auto hidden max-w-7xl px-4 pb-3 sm:px-6 lg:block lg:px-8">
