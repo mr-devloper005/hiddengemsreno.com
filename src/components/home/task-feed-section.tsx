@@ -32,9 +32,9 @@ const sectionStyles = {
   },
   studio: {
     section: 'py-16 sm:py-18',
-    heading: 'text-slate-950',
-    body: 'text-slate-600',
-    card: 'border-b border-slate-200 pb-6',
+    heading: 'text-[#1a1a1a]',
+    body: 'text-[#5c5652]',
+    card: 'border-b border-[#e8ded1] pb-6',
   },
   market: {
     section: 'py-14 sm:py-16',

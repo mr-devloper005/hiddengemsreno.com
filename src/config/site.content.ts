@@ -2,75 +2,85 @@ import type { TaskKey } from '@/lib/site-config'
 
 export const siteContent = {
   navbar: {
-    tagline: 'Image and profile platform',
+    tagline: 'Image & profile discovery',
   },
   footer: {
-    tagline: 'Visual posts, creators, and discoverable profiles',
+    tagline: 'Galleries, creators, and public profiles in one calm surface',
   },
   hero: {
-    badge: 'Local image finds',
-    title: ['Find visual gems, local scenes, and expressive profiles.'],
+    /** Full-width hero photo in /public */
+    backgroundImageSrc: '/hero-feather.jpg',
+    backgroundImageAlt:
+      'A single feather upright on warm sand dunes in bright sunlight — minimal, calm hero imagery for the gallery.',
+    badge: 'Featured visuals',
+    title: ['Discover featured creators', 'and image-led portfolios.'],
     description:
-      'A visual curation platform built around image discovery, local inspiration, and memorable profiles.',
+      'A soft, gallery-first experience for browsing photography, design work, and expressive profiles—without the noise of unrelated formats.',
     primaryCta: {
-      label: 'Browse images',
+      label: 'Explore gallery',
       href: '/images',
     },
     secondaryCta: {
-      label: 'Explore profiles',
+      label: 'View profiles',
       href: '/profile',
     },
-    searchPlaceholder: 'Search images, creators, collections, and visual posts',
+    searchPlaceholder: 'Search creators, images, and visual posts',
     focusLabel: 'Focus',
     featureCardBadge: 'latest cover rotation',
     featureCardTitle: 'Latest posts shape the visual identity of the homepage.',
     featureCardDescription:
-      'Recent images and stories stay at the center of the experience without changing any core platform behavior.',
+      'Recent images and profiles stay at the center of the experience without changing any core platform behavior.',
   },
   home: {
     metadata: {
-      title: 'Stories, visuals, and discoverable content',
+      title: 'Visual galleries and creator profiles',
       description:
-        'Explore articles, images, listings, and curated posts through a cleaner reading-first experience.',
-      openGraphTitle: 'Stories, visuals, and discoverable content',
+        'Browse image-led posts and public profiles through a soft, editorial gallery layout built for creators and visual discovery.',
+      openGraphTitle: 'Visual galleries and creator profiles',
       openGraphDescription:
-        'Discover articles, visual posts, and connected content through a calmer reading-first experience.',
-      keywords: ['story platform', 'article site', 'visual content', 'content discovery'],
+        'Explore portfolios, imagery, and discoverable profiles in a calm, premium browsing rhythm.',
+      keywords: [
+        'creator profiles',
+        'image gallery',
+        'photography portfolio',
+        'visual discovery',
+        'design showcase',
+      ],
     },
-    introBadge: 'About the platform',
-    introTitle: 'Built for reading, browsing, and connecting different kinds of content.',
+    introBadge: 'Why this exists',
+    introTitle: 'Built for images first—and the people behind them.',
     introParagraphs: [
-      'This site brings together article-style reading, visual browsing, and structured discovery so visitors can move naturally between different content types.',
-      'Instead of separating stories, visuals, and supporting resources into disconnected surfaces, the platform keeps them connected in one place with consistent navigation and easier exploration.',
-      'Whether someone starts with a story, an image-led post, a listing, or a resource page, they can keep discovering related content without friction.',
+      'This platform keeps imagery and identity surfaces connected: large media, readable profile context, and a browsing rhythm that feels closer to a boutique gallery than a generic feed.',
+      'You can move from a striking visual post straight into the creator’s profile without juggling unrelated content types in navigation.',
+      'Every layout choice prioritizes scanning, trust, and calm spacing so the work—not the chrome—stays in focus.',
     ],
     sideBadge: 'At a glance',
     sidePoints: [
-      'Reading-first homepage with stronger emphasis on stories and imagery.',
-      'Connected sections for articles, visuals, listings, and supporting resources.',
-      'Cleaner browsing rhythm designed to make exploration feel easier.',
-      'Lightweight interactions that keep the experience fast and readable.',
+      'Gallery-forward homepage with generous rounded frames and soft contrast.',
+      'Dedicated lanes for latest images and highlighted profiles.',
+      'Pill-shaped controls and muted neutrals inspired by premium retail editorial.',
+      'Light motion: subtle fades, no distracting gimmicks.',
     ],
     primaryLink: {
-      label: 'Browse articles',
-      href: '/articles',
+      label: 'Open gallery',
+      href: '/images',
     },
     secondaryLink: {
-      label: 'See visuals',
-      href: '/images',
+      label: 'Meet creators',
+      href: '/profile',
     },
   },
   cta: {
-    badge: 'Start exploring',
-    title: 'Explore articles, visuals, and resources through one connected experience.',
+    badge: 'Start browsing',
+    title: 'Save inspiration, follow creators, and keep visual discovery in one place.',
     description:
-      'Move between articles, image-led posts, listings, and resources through one clearer and more connected visual system.',
+      'Join to personalize what you see and return to the profiles and images that matter to you—same platform behavior, clearer presentation.',
     primaryCta: {
-      label: 'Get Started Free',
+      label: 'Create free account',
       href: '/register',
     },
     secondaryCta: {
-      label: 'Contact Sales',
+      label: 'Contact us',
       href: '/contact',
     },
   },
@@ -97,7 +107,7 @@ export const taskPageMetadata: Record<Exclude<TaskKey, 'comment' | 'org' | 'soci
   },
   profile: {
     title: 'Profiles and public pages',
-    description: 'Discover public profiles, brand pages, and identity-focused posts in one place.',
+    description: 'Discover public profiles, creator pages, and identity-focused posts in one place.',
   },
   sbm: {
     title: 'Curated links and saved resources',
@@ -155,27 +165,27 @@ export const taskIntroCopy: Record<
   image: {
     title: 'Image-led posts and visual stories',
     paragraphs: [
-      'Images take the lead in this section through galleries, visual posts, and story-led content where imagery carries the experience.',
-      'These posts connect with articles, listings, and other sections so visuals can act as entry points into deeper content.',
-      'Browse the latest visual updates, then continue into related stories or supporting pages for more context.',
+      'Imagery leads here: photography, design studies, mood boards, and portfolio-style posts with room to breathe.',
+      'Open any card to see the full visual story, then continue into the creator profile when you want context.',
+      'Use filters and search when you need to narrow in—same data model, calmer presentation.',
     ],
     links: [
-      { label: 'Read articles', href: '/articles' },
-      { label: 'Explore listings', href: '/listings' },
-      { label: 'Open classifieds', href: '/classifieds' },
+      { label: 'Browse gallery', href: '/images' },
+      { label: 'Explore profiles', href: '/profile' },
+      { label: 'Search visuals', href: '/search' },
     ],
   },
   profile: {
     title: 'Profiles, identities, and public pages',
     paragraphs: [
-      'Profiles capture the identity behind a business, creator, brand, or project and help visitors understand who is behind the content they are exploring.',
-      'These pages work as trust anchors across the site and connect naturally with stories, listings, documents, and other post types.',
-      'Browse profiles to understand people and brands more clearly, then continue into related content from the same source.',
+      'Profiles anchor trust: who made the work, what they focus on, and how to follow their next drop.',
+      'They pair naturally with image posts so visitors can move from a single frame to a fuller creative identity.',
+      'Browse profiles to discover collaborators, studios, and independent creators in one structured directory.',
     ],
     links: [
-      { label: 'Open listings', href: '/listings' },
-      { label: 'Read articles', href: '/articles' },
-      { label: 'Browse images', href: '/images' },
+      { label: 'View gallery', href: '/images' },
+      { label: 'Search people', href: '/search' },
+      { label: 'Join the community', href: '/register' },
     ],
   },
   sbm: {

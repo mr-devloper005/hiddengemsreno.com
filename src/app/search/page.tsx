@@ -42,7 +42,7 @@ export default async function SearchPage({
       ? feed.posts
       : useMaster
         ? []
-        : SITE_CONFIG.tasks.flatMap((task) => getMockPostsForTask(task.key));
+        : SITE_CONFIG.tasks.filter((t) => t.enabled).flatMap((task) => getMockPostsForTask(task.key));
 
   const filtered = posts.filter((post) => {
     const content = post.content && typeof post.content === "object" ? post.content : {};
@@ -72,11 +72,12 @@ export default async function SearchPage({
 
   return (
     <PageShell
+      eyebrow="Discover"
       title="Search"
       description={
         query
-          ? `Results for "${query}"`
-          : "Browse the latest posts across every task."
+          ? `Results for "${query}" across galleries, profiles, and visual posts.`
+          : 'Browse fresh imagery and creator profiles with the same calm layout as the homepage.'
       }
       actions={
         <form action="/search" className="flex w-full gap-2 sm:w-auto">
@@ -88,18 +89,18 @@ export default async function SearchPage({
             <Input
               name="q"
               defaultValue={query}
-              placeholder="Search across tasks..."
-              className="h-11 pl-9"
+              placeholder="Search images, profiles, and visual posts…"
+              className="h-11 rounded-full border-[#e5ddd4] bg-white pl-9 shadow-sm"
             />
           </div>
-          <Button type="submit" className="h-11">
+          <Button type="submit" className="h-11 rounded-full bg-[#1B3022] px-6 text-[#faf8f6] hover:bg-[#243d2e]">
             Search
           </Button>
         </form>
       }
     >
       {results.length ? (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {results.map((post) => {
             const task = getPostTaskKey(post);
             const href = task ? buildPostUrl(task, post.slug) : `/posts/${post.slug}`;
@@ -107,8 +108,8 @@ export default async function SearchPage({
           })}
         </div>
       ) : (
-        <div className="rounded-2xl border border-dashed border-border p-10 text-center text-muted-foreground">
-          No matching posts yet.
+        <div className="rounded-[1.75rem] border border-dashed border-[#d9c5c1] bg-[#faf8f6] p-12 text-center text-sm text-[#5c5652]">
+          No matching posts yet—try a shorter phrase or browse from the homepage galleries.
         </div>
       )}
     </PageShell>

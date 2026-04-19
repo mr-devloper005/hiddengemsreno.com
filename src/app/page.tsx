@@ -39,6 +39,10 @@ const taskIcons: Record<TaskKey, any> = {
   classified: Tag,
   image: ImageIcon,
   profile: User,
+  social: Globe2,
+  pdf: FileText,
+  org: Building2,
+  comment: FileText,
 }
 
 function resolveTaskKey(value: unknown, fallback: TaskKey): TaskKey {
@@ -114,14 +118,15 @@ function getEditorialTone() {
 
 function getVisualTone() {
   return {
-    shell: 'bg-[#07101f] text-white',
-    panel: 'border border-white/10 bg-[rgba(11,18,31,0.78)] shadow-[0_28px_80px_rgba(0,0,0,0.35)]',
-    soft: 'border border-white/10 bg-white/6',
-    muted: 'text-slate-300',
-    title: 'text-white',
-    badge: 'bg-[#8df0c8] text-[#07111f]',
-    action: 'bg-[#8df0c8] text-[#07111f] hover:bg-[#77dfb8]',
-    actionAlt: 'border border-white/10 bg-white/6 text-white hover:bg-white/10',
+    shell: 'bg-[#f5f5f5] text-[#1a1a1a]',
+    panel: 'border border-[#e5ddd4] bg-white shadow-[0_28px_80px_rgba(26,26,26,0.07)]',
+    soft: 'border border-[#e8ded1] bg-[#faf8f6]',
+    muted: 'text-[#5c5652]',
+    title: 'text-[#1a1a1a]',
+    badge: 'bg-[#1a1a1a] text-white',
+    action: 'bg-[#1a1a1a] text-white hover:bg-[#2d2d2d]',
+    actionAlt: 'border border-[#e5ddd4] bg-white text-[#1a1a1a] hover:bg-[#ebe6e0]',
+    heroImage: 'rounded-[2.25rem] sm:rounded-[2.75rem]',
   }
 }
 
@@ -347,61 +352,122 @@ function VisualHome({ primaryTask, imagePosts, profilePosts, articlePosts }: { p
   const tone = getVisualTone()
   const gallery = imagePosts.length ? imagePosts.slice(0, 5) : articlePosts.slice(0, 5)
   const creators = profilePosts.slice(0, 3)
+  const heroSrc = siteContent.hero.backgroundImageSrc
+  const heroAlt = siteContent.hero.backgroundImageAlt
 
   return (
     <main className={tone.shell}>
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-18">
-        <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+        <div className={`relative overflow-hidden ${tone.heroImage} ${tone.panel}`}>
+          <div className="relative aspect-[21/10] min-h-[280px] w-full sm:aspect-[24/10] sm:min-h-[360px]">
+            <ContentImage
+              src={heroSrc}
+              alt={heroAlt}
+              fill
+              className="object-cover object-center"
+              sizes="100vw"
+              priority
+              intrinsicWidth={1920}
+              intrinsicHeight={1005}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/55 via-[#1a1a1a]/15 to-transparent" />
+            <div className="absolute inset-0 flex flex-col items-center justify-end px-6 pb-10 text-center sm:justify-center sm:pb-0">
+              <span className={`mb-4 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] ${tone.badge}`}>
+                <ImageIcon className="h-3.5 w-3.5" />
+                {siteContent.hero.badge}
+              </span>
+              <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.05em] text-white sm:text-5xl lg:text-6xl">
+                {siteContent.hero.title[0]}
+                {siteContent.hero.title[1] ? <span className="mt-2 block text-white/90">{siteContent.hero.title[1]}</span> : null}
+              </h1>
+              <div className="mt-8 flex flex-wrap justify-center gap-3">
+                <Link
+                  href={siteContent.hero.primaryCta.href}
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[#1a1a1a] shadow-lg transition hover:bg-[#e8ded1]"
+                >
+                  {siteContent.hero.primaryCta.label}
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1a1a1a] text-white">
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
+                </Link>
+                <Link
+                  href={siteContent.hero.secondaryCta.href}
+                  className={`inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold ${tone.actionAlt}`}
+                >
+                  {siteContent.hero.secondaryCta.label}
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_1.05fr] lg:items-start">
           <div>
-            <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] ${tone.badge}`}>
-              <ImageIcon className="h-3.5 w-3.5" />
-              Visual publishing system
-            </span>
-            <h1 className={`mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.06em] sm:text-6xl ${tone.title}`}>
-              Image-led discovery with creator profiles and a more gallery-like browsing rhythm.
-            </h1>
-            <p className={`mt-6 max-w-2xl text-base leading-8 ${tone.muted}`}>{SITE_CONFIG.description}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#6b6560]">{siteContent.home.introBadge}</p>
+            <h2 className={`mt-4 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl ${tone.title}`}>{siteContent.home.introTitle}</h2>
+            <p className={`mt-5 max-w-xl text-sm leading-8 sm:text-[15px] ${tone.muted}`}>{siteContent.home.introParagraphs[0]}</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href={primaryTask?.route || '/images'} className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.action}`}>
-                Open gallery
+              <Link href={primaryTask?.route || '/images'} className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold ${tone.action}`}>
+                {siteContent.home.primaryLink.label}
                 <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href="/profile" className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.actionAlt}`}>
-                Meet creators
+              <Link href={siteContent.home.secondaryLink.href} className={`inline-flex items-center gap-2 rounded-full border border-[#e5ddd4] bg-white px-6 py-3 text-sm font-semibold text-[#1a1a1a] hover:bg-[#faf8f6]`}>
+                {siteContent.home.secondaryLink.label}
               </Link>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
             {gallery.slice(0, 5).map((post, index) => (
               <Link
                 key={post.id}
                 href={getTaskHref(resolveTaskKey(post.task, 'image'), post.slug)}
-                className={index === 0 ? `col-span-2 row-span-2 overflow-hidden rounded-[2.4rem] ${tone.panel}` : `overflow-hidden rounded-[1.8rem] ${tone.soft}`}
+                className={
+                  index === 0
+                    ? `col-span-2 row-span-2 overflow-hidden rounded-[2rem] border border-[#e5ddd4] bg-white shadow-[0_20px_50px_rgba(26,26,26,0.06)]`
+                    : `overflow-hidden rounded-[1.65rem] border border-[#e8ded1] bg-[#faf8f6] shadow-sm`
+                }
               >
-                <div className={index === 0 ? 'relative h-[360px]' : 'relative h-[170px]'}>
-                  <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover" />
+                <div className={index === 0 ? 'relative h-[280px] sm:h-[340px]' : 'relative h-[140px] sm:h-[160px]'}>
+                  <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover transition duration-500 hover:scale-[1.03]" />
+                  {index === 0 ? (
+                    <span className="absolute bottom-4 left-4 rounded-full bg-white/95 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a] shadow-sm">
+                      {resolveTaskKey(post.task, 'image') === 'image' ? 'Gallery' : 'Visual'}
+                    </span>
+                  ) : null}
                 </div>
               </Link>
             ))}
           </div>
         </div>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className={`rounded-[2rem] p-7 ${tone.panel}`}>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Visual notes</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">Larger media surfaces, fewer boxes, stronger pacing.</h2>
-            <p className={`mt-4 max-w-2xl text-sm leading-8 ${tone.muted}`}>This product avoids business-directory density and publication framing. The homepage behaves more like a visual board, with profile surfaces and imagery leading the experience.</p>
+        <div className="mt-16 grid gap-6 lg:grid-cols-2">
+          <div className={`rounded-[2rem] border border-[#e5ddd4] bg-[#d9c5c1]/25 p-8 sm:p-10`}>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#5c5652]">{siteContent.home.sideBadge}</p>
+            <h3 className="mt-4 text-2xl font-semibold tracking-[-0.03em]">{siteContent.cta.title}</h3>
+            <p className={`mt-4 text-sm leading-8 ${tone.muted}`}>{siteContent.cta.description}</p>
+            <Link href={siteContent.cta.primaryCta.href} className={`mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold ${tone.action}`}>
+              {siteContent.cta.primaryCta.label}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
-          <div className="grid gap-4 md:grid-cols-3">
-            {creators.map((post) => (
-              <Link key={post.id} href={`/profile/${post.slug}`} className={`rounded-[1.8rem] p-5 ${tone.soft}`}>
-                <div className="relative h-40 overflow-hidden rounded-[1.2rem]">
-                  <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover" />
-                </div>
-                <h3 className="mt-4 text-lg font-semibold">{post.title}</h3>
-                <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{post.summary || 'Creator profile and visual identity surface.'}</p>
-              </Link>
-            ))}
+          <div className={`rounded-[2rem] p-7 ${tone.panel}`}>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#6b6560]">Featured creators</p>
+            <h3 className="mt-3 text-2xl font-semibold tracking-[-0.03em]">Profiles worth opening</h3>
+            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+              {creators.length ? (
+                creators.map((post) => (
+                  <Link key={post.id} href={`/profile/${post.slug}`} className={`rounded-[1.5rem] border border-[#e8ded1] bg-[#faf8f6] p-4 transition hover:border-[#d9c5c1]`}>
+                    <div className="relative h-36 overflow-hidden rounded-[1.25rem]">
+                      <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover" />
+                    </div>
+                    <h4 className="mt-4 text-base font-semibold">{post.title}</h4>
+                    <p className={`mt-2 line-clamp-2 text-sm leading-6 ${tone.muted}`}>{post.summary || 'Creator profile and portfolio surface.'}</p>
+                  </Link>
+                ))
+              ) : (
+                <p className={`col-span-full text-sm ${tone.muted}`}>New creator profiles will appear here as they publish.</p>
+              )}
+            </div>
           </div>
         </div>
       </section>

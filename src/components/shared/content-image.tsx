@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type CSSProperties, type ImgHTMLAttributes } from "react";
+import { useEffect, useMemo, useState, type CSSProperties, type ImgHTMLAttributes } from "react";
 
 const PLACEHOLDER = "/placeholder.svg?height=900&width=1400";
 
@@ -31,6 +31,11 @@ export function ContentImage({
   const initialSrc = typeof src === "string" && src.trim() ? src : PLACEHOLDER;
   const [currentSrc, setCurrentSrc] = useState(initialSrc);
 
+  useEffect(() => {
+    const next = typeof src === "string" && src.trim() ? src : PLACEHOLDER;
+    setCurrentSrc(next);
+  }, [src]);
+
   const width = intrinsicWidth ?? (fill ? 1600 : 800);
   const height = intrinsicHeight ?? (fill ? 900 : 600);
 
@@ -50,8 +55,8 @@ export function ContentImage({
       {...props}
       src={currentSrc}
       alt={alt}
-      width={width}
-      height={height}
+      width={fill ? undefined : width}
+      height={fill ? undefined : height}
       className={className}
       style={resolvedStyle}
       sizes={sizes}
