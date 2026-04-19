@@ -107,14 +107,14 @@ export default async function ProfileDetailPage({ params }: { params: Promise<{ 
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       <NavbarShell />
-      <main className="mx-auto w-full max-w-6xl px-4 pb-16 pt-10 sm:px-6 lg:px-8">
+      <main className="mx-auto w-full max-w-7xl px-4 pb-16 pt-12 sm:px-6 sm:pt-14 lg:px-8">
         <SchemaJsonLd data={breadcrumbData} />
-        <section className="rounded-3xl border border-border/60 bg-white/90 p-8 shadow-sm md:p-12">
+        <section className="rounded-[2rem] border border-[#e5ddd4] bg-white p-8 shadow-[0_24px_70px_rgba(26,26,26,0.07)] md:p-12">
           <div className="grid gap-8 md:grid-cols-[200px_1fr] md:items-start">
             <div className="flex justify-center md:justify-start">
-              <div className="relative h-36 w-36 overflow-hidden rounded-full border border-border/70 bg-muted">
+              <div className="relative h-36 w-36 overflow-hidden rounded-full border border-[#e5ddd4] bg-[#faf8f6]">
                 {logoUrl ? (
                   <ContentImage src={logoUrl} alt={post.title} fill className="object-cover" sizes="144px" intrinsicWidth={144} intrinsicHeight={144} />
                 ) : (
@@ -125,7 +125,7 @@ export default async function ProfileDetailPage({ params }: { params: Promise<{ 
               </div>
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-foreground sm:text-4xl">{brandName}</h1>
+              <h1 className="text-3xl font-semibold tracking-[-0.03em] text-[#1a1a1a] sm:text-4xl">{brandName}</h1>
               {domain ? (
                 <p className="mt-1 text-sm font-medium text-muted-foreground">{domain}</p>
               ) : null}
@@ -164,8 +164,8 @@ export default async function ProfileDetailPage({ params }: { params: Promise<{ 
                 />
               ))}
             </div>
-            <nav className="mt-6 rounded-2xl border border-border bg-card/60 p-4">
-              <p className="text-sm font-semibold text-foreground">Related links</p>
+            <nav className="mt-6 rounded-[1.75rem] border border-[#e5ddd4] bg-[#faf8f6] p-5">
+              <p className="text-sm font-semibold text-[#1a1a1a]">Related links</p>
               <ul className="mt-2 space-y-2 text-sm">
                 {suggestedArticles.slice(0, 3).map((article) => (
                   <li key={`related-${article.id}`}>

@@ -23,23 +23,24 @@ export default function PressPage() {
 
   return (
     <PageShell
-      title="Press"
-      description="Media resources, brand assets, and press coverage."
+      eyebrow="Press"
+      title="Media room"
+      description="Brand assets, product imagery, and recent coverage—styled to match the on-site experience."
     >
       <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-        <Card className="border-border bg-card">
-          <CardContent className="p-6 space-y-3">
-            <h2 className="text-lg font-semibold text-foreground">Press Kit</h2>
-            <p className="text-sm text-muted-foreground">
+        <Card className="border-[#e5ddd4] bg-white shadow-[0_18px_50px_rgba(26,26,26,0.06)]">
+          <CardContent className="space-y-3 p-6 sm:p-8">
+            <h2 className="text-lg font-semibold text-[#1a1a1a]">Press kit</h2>
+            <p className="text-sm leading-7 text-[#5c5652]">
               Download logos, product screenshots, and brand guidelines for media use.
             </p>
             <div className="grid gap-2">
               {mockPressAssets.map((asset) => (
-                <div key={asset.id} className="rounded-lg border border-border bg-secondary/40 px-4 py-3">
+                <div key={asset.id} className="rounded-[1.25rem] border border-[#e8ded1] bg-[#faf8f6] px-4 py-3">
                   <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                     <div>
-                      <p className="text-sm font-medium text-foreground">{asset.title}</p>
-                      <p className="text-xs text-muted-foreground">{asset.description}</p>
+                      <p className="text-sm font-medium text-[#1a1a1a]">{asset.title}</p>
+                      <p className="text-xs text-[#6b6560]">{asset.description}</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <Badge variant="secondary">{asset.fileType}</Badge>
@@ -66,11 +67,11 @@ export default function PressPage() {
         </Card>
         <div className="space-y-4">
           {mockPressCoverage.map((item) => (
-            <Card key={item.id} className="border-border bg-card transition-transform hover:-translate-y-1">
+            <Card key={item.id} className="border-[#e5ddd4] bg-white transition hover:-translate-y-0.5 hover:shadow-md">
               <CardContent className="p-6">
-                <div className="text-xs uppercase tracking-wide text-muted-foreground">{item.outlet}</div>
-                <p className="mt-2 text-sm text-foreground">{item.headline}</p>
-                <p className="mt-2 text-xs text-muted-foreground">{item.date}</p>
+                <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#1B3022]/80">{item.outlet}</div>
+                <p className="mt-2 text-sm text-[#1a1a1a]">{item.headline}</p>
+                <p className="mt-2 text-xs text-[#6b6560]">{item.date}</p>
               </CardContent>
             </Card>
           ))}

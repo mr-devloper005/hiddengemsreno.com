@@ -229,7 +229,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
 
   if (productKind === "directory" && (task === "listing" || task === "classified" || task === "profile")) {
     return (
-      <div className="min-h-screen bg-[#f8fbff]">
+      <div className="min-h-screen bg-background text-foreground">
         <NavbarShell />
         <DirectoryTaskDetailPage
           task={task}
@@ -248,13 +248,13 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       <NavbarShell />
-      <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8">
         <SchemaJsonLd data={schemaPayload} />
         <Link
           href={taskConfig?.route || "/"}
-          className="mb-6 inline-flex items-center text-sm text-muted-foreground hover:text-foreground"
+          className="mb-8 inline-flex items-center rounded-full border border-[#e5ddd4] bg-white px-4 py-2 text-sm text-[#5c5652] shadow-sm transition hover:border-[#d9c5c1] hover:text-[#1a1a1a]"
         >
           ← Back to {taskConfig?.label || "posts"}
         </Link>
@@ -292,7 +292,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
                   <p className="text-base leading-7 text-muted-foreground">{articleSummary}</p>
                 ) : null}
                 {images[0] ? (
-                  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl border border-border bg-muted">
+                  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[2rem] border border-[#e5ddd4] bg-[#faf8f6] shadow-[0_16px_48px_rgba(26,26,26,0.06)]">
                     <ContentImage
                       src={images[0]}
                       alt={`${post.title} featured image`}
@@ -336,8 +336,8 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
             ) : null}
 
             {isClassified ? (
-              <div className="mx-auto w-full max-w-4xl rounded-2xl border border-border bg-card p-6">
-                <h2 className="text-lg font-semibold text-foreground">Business details</h2>
+              <div className="mx-auto w-full max-w-4xl rounded-[1.75rem] border border-[#e5ddd4] bg-white p-6 shadow-[0_12px_40px_rgba(26,26,26,0.05)]">
+                <h2 className="text-lg font-semibold text-[#1a1a1a]">Business details</h2>
                 <div className="mt-4 space-y-3 text-sm text-muted-foreground">
                   {content.website && (
                     <div className="flex items-start gap-2">
@@ -380,8 +380,8 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
             ) : null}
 
             {content.highlights?.length && !isArticle ? (
-              <div className={cn("mt-8 rounded-2xl border border-border bg-card p-6", isClassified ? "mx-auto w-full max-w-4xl" : "")}>
-                <h2 className="text-lg font-semibold text-foreground">Highlights</h2>
+              <div className={cn("mt-8 rounded-[1.75rem] border border-[#e5ddd4] bg-white p-6 shadow-[0_12px_40px_rgba(26,26,26,0.05)]", isClassified ? "mx-auto w-full max-w-4xl" : "")}>
+                <h2 className="text-lg font-semibold text-[#1a1a1a]">Highlights</h2>
                 <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
                   {content.highlights.map((item) => (
                     <li key={item}>• {item}</li>
@@ -391,9 +391,9 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
             ) : null}
 
             {isClassified && mapEmbedUrl ? (
-              <div className="mx-auto w-full max-w-4xl rounded-2xl border border-border bg-card p-4">
-                <p className="text-sm font-semibold text-foreground">Location map</p>
-                <div className="mt-4 overflow-hidden rounded-xl border border-border">
+              <div className="mx-auto w-full max-w-4xl rounded-[1.75rem] border border-[#e5ddd4] bg-white p-4 shadow-[0_12px_40px_rgba(26,26,26,0.05)]">
+                <p className="text-sm font-semibold text-[#1a1a1a]">Location map</p>
+                <div className="mt-4 overflow-hidden rounded-[1.25rem] border border-[#e8ded1]">
                   <iframe
                     title="Business location map"
                     src={mapEmbedUrl}
@@ -408,8 +408,8 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
 
           {!hideSidebar ? (
             <aside className="space-y-6">
-            <div className="rounded-2xl border border-border bg-card p-6">
-              <h2 className="text-lg font-semibold text-foreground">Listing details</h2>
+            <div className="rounded-[1.75rem] border border-[#e5ddd4] bg-white p-6 shadow-[0_12px_40px_rgba(26,26,26,0.05)]">
+              <h2 className="text-lg font-semibold text-[#1a1a1a]">Listing details</h2>
                 <div className="mt-4 space-y-3 text-sm text-muted-foreground">
                   {content.website && (
                     <div className="flex items-start gap-2">
@@ -458,9 +458,9 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
             </div>
 
             {mapEmbedUrl ? (
-              <div className="rounded-2xl border border-border bg-card p-4">
-                <p className="text-sm font-semibold text-foreground">Location map</p>
-                <div className="mt-4 overflow-hidden rounded-xl border border-border">
+              <div className="rounded-[1.75rem] border border-[#e5ddd4] bg-white p-4 shadow-[0_12px_40px_rgba(26,26,26,0.05)]">
+                <p className="text-sm font-semibold text-[#1a1a1a]">Location map</p>
+                <div className="mt-4 overflow-hidden rounded-[1.25rem] border border-[#e8ded1]">
                   <iframe
                     title="Business location map"
                     src={mapEmbedUrl}
@@ -502,8 +502,8 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
             </div>
             </>
           ) : null}
-          <nav className="mt-6 rounded-2xl border border-border bg-card/60 p-4">
-            <p className="text-sm font-semibold text-foreground">Related links</p>
+          <nav className="mt-6 rounded-[1.75rem] border border-[#e5ddd4] bg-[#faf8f6] p-5">
+            <p className="text-sm font-semibold text-[#1a1a1a]">Related links</p>
             <ul className="mt-2 space-y-2 text-sm">
               {related.map((item) => (
                 <li key={`link-${item.id}`}>

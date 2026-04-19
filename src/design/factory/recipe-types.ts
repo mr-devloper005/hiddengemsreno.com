@@ -39,7 +39,7 @@ export type ThemePackDefinition = {
   key: ThemePackKey
   label: string
   productFamily: ProductFamily
-  brandPack: 'editorial-luxe' | 'directory-clean' | 'studio-dark' | 'market-utility'
+  brandPack: 'editorial-luxe' | 'directory-clean' | 'studio-dark' | 'market-utility' | 'soft-minimal'
   navbar: NavbarLayoutKey
   footer: FooterLayoutKey
   homeLayout: HomeLayoutKey
