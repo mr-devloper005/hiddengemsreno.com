@@ -55,21 +55,6 @@ export function DirectoryTaskDetailPage({
 
         <section className="grid gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-start">
           <div>
-            <div className="overflow-hidden rounded-[2.2rem] border border-[#e5ddd4] bg-white shadow-[0_24px_70px_rgba(26,26,26,0.08)]">
-              <div className="relative h-[420px] overflow-hidden bg-[#faf8f6]">
-                <ContentImage src={images[0]} alt={post.title} fill className="object-cover" />
-              </div>
-              {images.length > 1 ? (
-                <div className="grid grid-cols-4 gap-3 p-4">
-                  {images.slice(1, 5).map((image) => (
-                    <div key={image} className="relative h-24 overflow-hidden rounded-[1.25rem] border border-[#e8ded1] bg-[#faf8f6]">
-                      <ContentImage src={image} alt={post.title} fill className="object-cover" />
-                    </div>
-                  ))}
-                </div>
-              ) : null}
-            </div>
-
             <div className="mt-8 rounded-[2rem] border border-[#e5ddd4] bg-white p-7 shadow-[0_20px_60px_rgba(26,26,26,0.06)]">
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#6b6560]">About this {task}</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[#1a1a1a]">Structured details instead of a generic content block.</h2>

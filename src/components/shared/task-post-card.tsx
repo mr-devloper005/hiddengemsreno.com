@@ -1,6 +1,6 @@
 import { ContentImage } from '@/components/shared/content-image'
 import Link from 'next/link'
-import { ArrowUpRight, ExternalLink, FileText, Mail, MapPin, Tag } from 'lucide-react'
+import { ArrowUpRight, ExternalLink, FileText, Globe, Mail, MapPin, Tag } from 'lucide-react'
 import type { SitePost } from '@/lib/site-connector'
 import { CATEGORY_OPTIONS, normalizeCategory } from '@/lib/categories'
 import type { TaskKey } from '@/lib/site-config'
@@ -13,6 +13,10 @@ type ListingContent = {
   category?: string
   description?: string
   email?: string
+  website?: string
+  name?: string
+  brandName?: string
+  companyName?: string
 }
 
 const stripHtml = (value?: string | null) =>
@@ -27,7 +31,7 @@ const getExcerpt = (value?: string | null, maxLength = 140) => {
   const text = stripHtml(value)
   if (!text) return ''
   if (text.length <= maxLength) return text
-  return `${text.slice(0, maxLength).trimEnd()}…`
+  return `${text.slice(0, maxLength).trimEnd()}...`
 }
 
 const getContent = (post: SitePost): ListingContent => {
@@ -109,6 +113,11 @@ export function TaskPostCard({
   const imageAspect = variant === 'image' ? 'aspect-[4/5]' : variant === 'article' ? 'aspect-[16/10]' : variant === 'pdf' ? 'aspect-[4/5]' : variant === 'classified' ? 'aspect-[16/11]' : 'aspect-[4/3]'
   const altText = `${post.title} ${category} ${variant === 'listing' ? 'business listing' : variant} image`
   const imageSizes = variant === 'article' ? '(max-width: 640px) 90vw, (max-width: 1024px) 48vw, 420px' : variant === 'image' ? '(max-width: 640px) 82vw, (max-width: 1024px) 34vw, 320px' : '(max-width: 640px) 85vw, (max-width: 1024px) 42vw, 340px'
+  const websiteDomain =
+    typeof content.website === 'string' && content.website
+      ? content.website.replace(/^https?:\/\//i, '').replace(/\/.*$/, '')
+      : ''
+  const profileLabel = content.brandName || content.companyName || content.name || category
 
   const { recipe } = getFactoryState()
   const isDirectoryProduct = recipe.homeLayout === 'listing-home' || recipe.homeLayout === 'classified-home'
@@ -178,6 +187,124 @@ export function TaskPostCard({
           <h3 className={`mt-3 line-clamp-2 text-lg font-semibold leading-snug group-hover:opacity-85 ${visualVariant.title}`}>{post.title}</h3>
           <p className={`mt-2 line-clamp-3 text-sm leading-7 ${visualVariant.muted}`}>{getExcerpt(content.description || post.summary, compact ? 120 : 180) || 'Explore this bookmark.'}</p>
           {content.email ? <div className={`mt-3 inline-flex items-center gap-1 text-xs ${visualVariant.muted}`}><Mail className="h-3.5 w-3.5" />{content.email}</div> : null}
+        </div>
+      </Link>
+    )
+  }
+
+  if (variant === 'image') {
+    return (
+      <Link
+        href={href}
+        className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-[#e8ded1] bg-white shadow-[0_18px_45px_rgba(26,26,26,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(26,26,26,0.14)]"
+      >
+        <div className="relative aspect-[4/5] overflow-hidden bg-[#ece6df]">
+          <ContentImage
+            src={image}
+            alt={altText}
+            fill
+            sizes={imageSizes}
+            quality={78}
+            className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+            intrinsicWidth={960}
+            intrinsicHeight={1200}
+          />
+          <div className="absolute inset-x-0 top-0 flex items-center justify-between p-4">
+            <span className="inline-flex items-center gap-1 rounded-full bg-white/92 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#1a1a1a] shadow-sm">
+              <Tag className="h-3.5 w-3.5" />
+              {category}
+            </span>
+            <span className="rounded-full bg-black/45 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
+              Gallery
+            </span>
+          </div>
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+        </div>
+        <div className="flex flex-1 flex-col gap-4 p-5">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#7b736d]">Featured image</p>
+              <h3 className="mt-2 line-clamp-2 text-xl font-semibold leading-snug text-[#1a1a1a]">{post.title}</h3>
+            </div>
+            <ArrowUpRight className="mt-1 h-5 w-5 shrink-0 text-[#7b736d]" />
+          </div>
+          <p className="line-clamp-3 text-sm leading-7 text-[#5c5652]">
+            {getExcerpt(content.description || post.summary, compact ? 110 : 145) || 'Open this gallery item for the full visual story.'}
+          </p>
+          <div className="mt-auto flex items-center justify-between gap-3 border-t border-[#eee6de] pt-4">
+            {content.location ? (
+              <span className="inline-flex items-center gap-1 text-xs text-[#5c5652]">
+                <MapPin className="h-3.5 w-3.5" />
+                {content.location}
+              </span>
+            ) : (
+              <span className="text-xs font-medium uppercase tracking-[0.18em] text-[#8b837d]">Curated visual</span>
+            )}
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#1a1a1a]">View gallery</span>
+          </div>
+        </div>
+      </Link>
+    )
+  }
+
+  if (variant === 'profile') {
+    return (
+      <Link
+        href={href}
+        className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-[#e5ddd4] bg-[linear-gradient(180deg,#fffdfb_0%,#ffffff_100%)] shadow-[0_20px_55px_rgba(26,26,26,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_75px_rgba(26,26,26,0.13)]"
+      >
+        <div className="relative h-48 overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(176,141,68,0.16),transparent_38%),linear-gradient(180deg,rgba(250,248,246,1)_0%,rgba(244,239,234,1)_100%)]">
+          <div className="absolute inset-x-0 top-0 flex items-start justify-between p-5">
+            <span className="inline-flex items-center gap-1 rounded-full border border-[#e8ded1] bg-white/92 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#1a1a1a]">
+              <Tag className="h-3.5 w-3.5" />
+              {category}
+            </span>
+            <ArrowUpRight className="h-5 w-5 text-[#7b736d]" />
+          </div>
+          <div className="absolute bottom-0 left-5 flex translate-y-1/2 items-end gap-4">
+            <div className="relative h-24 w-24 overflow-hidden rounded-[1.75rem] border border-white/90 bg-white shadow-[0_14px_30px_rgba(26,26,26,0.12)]">
+              <ContentImage
+                src={image}
+                alt={altText}
+                fill
+                sizes="96px"
+                quality={78}
+                className="object-cover"
+                intrinsicWidth={240}
+                intrinsicHeight={240}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-1 flex-col p-5 pt-16">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#7b736d]">Profile</p>
+              <h3 className="mt-2 line-clamp-2 text-xl font-semibold leading-snug text-[#1a1a1a]">{post.title}</h3>
+            </div>
+          </div>
+          <p className="mt-3 line-clamp-3 text-sm leading-7 text-[#5c5652]">
+            {getExcerpt(content.description || post.summary, compact ? 110 : 150) || 'Discover this profile and the story behind the work.'}
+          </p>
+          <div className="mt-5 flex flex-wrap gap-3 text-xs text-[#5c5652]">
+            <span className="inline-flex items-center gap-1 rounded-full bg-[#f7f2ed] px-3 py-1">
+              <Globe className="h-3.5 w-3.5" />
+              {websiteDomain || profileLabel}
+            </span>
+            {content.location ? (
+              <span className="inline-flex items-center gap-1 rounded-full bg-[#f7f2ed] px-3 py-1">
+                <MapPin className="h-3.5 w-3.5" />
+                {content.location}
+              </span>
+            ) : null}
+          </div>
+          {content.email ? (
+            <div className="mt-3 inline-flex items-center gap-1 text-xs text-[#5c5652]">
+              <Mail className="h-3.5 w-3.5" />
+              {content.email}
+            </div>
+          ) : null}
+          <div className="mt-auto pt-5 text-sm font-semibold text-[#1a1a1a]">View profile</div>
         </div>
       </Link>
     )
