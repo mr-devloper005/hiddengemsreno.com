@@ -1,7 +1,7 @@
 import { ContentImage } from "@/components/shared/content-image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MapPin, Globe, Phone, Tag, Mail } from "lucide-react";
+import { MapPin, Globe, Phone, Tag, Mail, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { NavbarShell } from "@/components/shared/navbar-shell";
 import { Footer } from "@/components/shared/footer";
 import { TaskPostCard } from "@/components/shared/task-post-card";
@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { buildPostUrl, fetchTaskPostBySlug, fetchTaskPosts } from "@/lib/task-data";
 import { SITE_CONFIG, getTaskConfig, type TaskKey } from "@/lib/site-config";
 import type { SitePost } from "@/lib/site-connector";
-import { TaskImageCarousel } from "@/components/tasks/task-image-carousel";
 import { cn } from "@/lib/utils";
 import { ArticleComments } from "@/components/tasks/article-comments";
 import { SchemaJsonLd } from "@/components/seo/schema-jsonld";
@@ -168,6 +167,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
   const mapEmbedUrl = buildMapEmbedUrl(content.latitude, content.longitude, location);
   const isBookmark = task === "sbm" || task === "social";
   const hideSidebar = isClassified || isArticle || task === "image" || isBookmark;
+  const isImageTask = task === "image";
   const related = (await fetchTaskPosts(task, 6))
     .filter((item) => item.slug !== post.slug)
     .filter((item) => {
@@ -256,7 +256,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
           href={taskConfig?.route || "/"}
           className="mb-8 inline-flex items-center rounded-full border border-[#e5ddd4] bg-white px-4 py-2 text-sm text-[#5c5652] shadow-sm transition hover:border-[#d9c5c1] hover:text-[#1a1a1a]"
         >
-          ← Back to {taskConfig?.label || "posts"}
+          Back to {taskConfig?.label || "posts"}
         </Link>
 
         <div
@@ -310,28 +310,60 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
 
             {!isArticle ? (
               <>
-                {!isBookmark ? (
-                  <div className={cn(isClassified ? "w-full" : "")}>
-                    <TaskImageCarousel images={images} />
+                {images.length > 0 && !isBookmark ? (
+                  <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                    {images.map((img, idx) => (
+                      <div key={idx} className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-[#e5ddd4] bg-[#faf8f6] shadow-[0_16px_48px_rgba(26,26,26,0.06)]">
+                        <ContentImage
+                          src={img}
+                          alt={`${post.title} image ${idx + 1}`}
+                          fill
+                          className="object-cover"
+                          intrinsicWidth={960}
+                          intrinsicHeight={1200}
+                        />
+                      </div>
+                    ))}
                   </div>
                 ) : null}
 
-                <div className={cn(isClassified ? "mx-auto w-full max-w-4xl" : "mt-6")}>
-                  <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-                    <Badge variant="secondary" className="inline-flex items-center gap-1">
-                      <Tag className="h-3.5 w-3.5" />
-                      {category}
-                    </Badge>
-                    {location && (
-                      <span className="inline-flex items-center gap-1">
-                        <MapPin className="h-4 w-4" />
-                        {location}
-                      </span>
-                    )}
+                {isImageTask ? (
+                  <div className="mt-6">
+                    <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+                      <Badge variant="secondary" className="inline-flex items-center gap-1">
+                        <Tag className="h-3.5 w-3.5" />
+                        {category}
+                      </Badge>
+                      {location ? (
+                        <span className="inline-flex items-center gap-1">
+                          <MapPin className="h-4 w-4" />
+                          {location}
+                        </span>
+                      ) : null}
+                    </div>
+                    <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-[#1a1a1a] sm:text-5xl">
+                      {post.title}
+                    </h1>
+                    <RichContent html={descriptionHtml} className="mt-4 max-w-3xl text-[#5c5652]" />
                   </div>
-                  <h1 className="mt-4 text-3xl font-semibold text-foreground">{post.title}</h1>
-                  <RichContent html={descriptionHtml} className="mt-3 max-w-3xl" />
-                </div>
+                ) : (
+                  <div className={cn(isClassified ? "mx-auto w-full max-w-4xl" : "mt-6")}>
+                    <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+                      <Badge variant="secondary" className="inline-flex items-center gap-1">
+                        <Tag className="h-3.5 w-3.5" />
+                        {category}
+                      </Badge>
+                      {location && (
+                        <span className="inline-flex items-center gap-1">
+                          <MapPin className="h-4 w-4" />
+                          {location}
+                        </span>
+                      )}
+                    </div>
+                    <h1 className="mt-4 text-3xl font-semibold text-foreground">{post.title}</h1>
+                    <RichContent html={descriptionHtml} className="mt-3 max-w-3xl" />
+                  </div>
+                )}
               </>
             ) : null}
 
@@ -384,7 +416,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
                 <h2 className="text-lg font-semibold text-[#1a1a1a]">Highlights</h2>
                 <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
                   {content.highlights.map((item) => (
-                    <li key={item}>• {item}</li>
+                    <li key={item}>- {item}</li>
                   ))}
                 </ul>
               </div>
