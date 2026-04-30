@@ -9,7 +9,7 @@ const lanes = [
   {
     icon: MessageCircle,
     title: 'General inquiries',
-    body: 'Questions about accounts, publishing, or how to get the most from the platform—we read every message and route it to the right person.',
+    body: 'Questions about accounts, publishing, or how to get the most from the platform. We read every message and route it to the right person.',
   },
   {
     icon: Phone,
@@ -22,6 +22,9 @@ const lanes = [
     body: 'Spotlight requests, neighborhood features, and ideas that help people discover places and people worth knowing.',
   },
 ]
+
+const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() || 'hello@example.com'
+const contactMailTo = `mailto:${contactEmail}`
 
 export default function ContactPage() {
   if (CONTACT_PAGE_OVERRIDE_ENABLED) {
@@ -40,7 +43,7 @@ export default function ContactPage() {
             Let&apos;s talk about what you&apos;re building, sharing, or discovering on {SITE_CONFIG.name}.
           </h1>
           <p className="mt-5 max-w-2xl text-sm leading-8 text-[#5c5652]">
-            Skip the generic ticket queue—tell us what you need in plain language. We&apos;ll respond with clear next steps, whether you&apos;re a creator, a local business, or a curious reader.
+            Skip the generic ticket queue and tell us what you need in plain language. We&apos;ll respond with clear next steps, whether you&apos;re a creator, a local business, or a curious reader.
           </p>
         </div>
 
@@ -58,8 +61,8 @@ export default function ContactPage() {
             ))}
             <p className="text-sm text-[#5c5652]">
               Prefer email directly?{' '}
-              <a href="mailto:hello@example.com" className="font-semibold text-[#1B3022] underline-offset-4 hover:underline">
-                hello@example.com
+              <a href={contactMailTo} className="font-semibold text-[#1B3022] underline-offset-4 hover:underline">
+                {contactEmail}
               </a>
             </p>
           </div>
@@ -90,14 +93,22 @@ export default function ContactPage() {
               />
               <textarea
                 className="min-h-[160px] rounded-[1.5rem] border border-[#e5ddd4] bg-[#faf8f6] px-5 py-4 text-sm text-[#1a1a1a] outline-none transition focus:border-[#1B3022]/40"
-                placeholder="Share context so we can help in one pass—links, timelines, and what success looks like for you."
+                placeholder="Share context so we can help in one pass: links, timelines, and what success looks like for you."
               />
-              <button
-                type="submit"
-                className="inline-flex h-12 items-center justify-center rounded-full bg-[#1B3022] px-6 text-sm font-semibold text-[#faf8f6] transition hover:bg-[#243d2e]"
-              >
-                Send message
-              </button>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <button
+                  type="submit"
+                  className="inline-flex h-12 items-center justify-center rounded-full bg-[#1B3022] px-6 text-sm font-semibold text-[#faf8f6] transition hover:bg-[#243d2e] sm:flex-1"
+                >
+                  Send message
+                </button>
+                <a
+                  href={contactMailTo}
+                  className="inline-flex h-12 items-center justify-center rounded-full border border-[#1B3022]/15 bg-[#faf8f6] px-6 text-sm font-semibold text-[#1B3022] transition hover:border-[#1B3022]/30 hover:bg-white sm:flex-1"
+                >
+                  Email us
+                </a>
+              </div>
             </form>
             <p className="mt-5 text-center text-xs text-[#6b6560]">
               By sending this form you agree to our{' '}

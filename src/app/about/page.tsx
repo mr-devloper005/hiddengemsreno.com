@@ -3,8 +3,6 @@ import { PageShell } from '@/components/shared/page-shell'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { mockTeamMembers } from '@/data/mock-data'
 import { SITE_CONFIG } from '@/lib/site-config'
 
 const highlights = [
@@ -74,30 +72,6 @@ export default function AboutPage() {
               <CardContent className="p-6">
                 <h3 className="text-lg font-semibold text-[#1a1a1a]">{value.title}</h3>
                 <p className="mt-2 text-sm leading-7 text-[#5c5652]">{value.description}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-10">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.22em] text-[#1B3022]/85">People behind the product</h2>
-        <div className="mt-6 grid gap-5 md:grid-cols-3">
-          {mockTeamMembers.map((member) => (
-            <Card key={member.id} className="border-[#e5ddd4] bg-white transition hover:-translate-y-0.5 hover:shadow-md">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3">
-                  <Avatar className="h-12 w-12 border border-[#e8ded1]">
-                    <AvatarImage src={member.avatar} alt={member.name} />
-                    <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="text-sm font-semibold text-[#1a1a1a]">{member.name}</p>
-                    <p className="text-xs text-[#6b6560]">{member.role}</p>
-                  </div>
-                </div>
-                <p className="mt-3 text-sm leading-7 text-[#5c5652]">{member.bio}</p>
-                <p className="mt-3 text-xs text-[#6b6560]">{member.location}</p>
               </CardContent>
             </Card>
           ))}

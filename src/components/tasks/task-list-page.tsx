@@ -143,18 +143,32 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
         ) : null}
 
         {layoutKey === 'image-masonry' || layoutKey === 'image-portfolio' ? (
-          <section className="mb-12 grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <section className="mb-12 grid gap-6 lg:grid-cols-[0.98fr_1.02fr] lg:items-center">
             <div>
               <div className={`inline-flex items-center gap-2 rounded-full border border-[#e5ddd4] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#1a1a1a]`}>
                 <Icon className="h-3.5 w-3.5" /> Visual feed
               </div>
-              <h1 className="mt-5 text-5xl font-semibold tracking-[-0.05em] text-[#1a1a1a]">{taskConfig?.description || 'Latest posts'}</h1>
-              <p className={`mt-5 max-w-2xl text-sm leading-8 ${ui.muted}`}>This surface leans into stronger imagery, larger modules, and more expressive spacing so visual content feels materially different from reading and directory pages.</p>
+              <h1 className="mt-5 max-w-3xl text-5xl font-semibold tracking-[-0.05em] text-[#1a1a1a]">
+                A more curated image gallery with stronger spacing, hierarchy, and showcase energy.
+              </h1>
+              <p className={`mt-5 max-w-2xl text-sm leading-8 ${ui.muted}`}>
+                Inspired by premium portfolio browsing, this layout gives photography and image-led posts room to breathe, prioritizing clean covers, lighter metadata, and a stronger sense of collection.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3 text-xs uppercase tracking-[0.22em] text-[#7b736d]">
+                <span className="rounded-full border border-[#e5ddd4] bg-white px-4 py-2">Editorial covers</span>
+                <span className="rounded-full border border-[#e5ddd4] bg-white px-4 py-2">Gallery-first browsing</span>
+                <span className="rounded-full border border-[#e5ddd4] bg-white px-4 py-2">Cleaner detail rhythm</span>
+              </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <div className={`min-h-[220px] rounded-[2rem] ${ui.panel}`} />
-              <div className={`min-h-[220px] rounded-[2rem] ${ui.soft}`} />
-              <div className={`col-span-2 min-h-[120px] rounded-[2rem] ${ui.panel}`} />
+              <div className="min-h-[280px] rounded-[2rem] border border-[#e5ddd4] bg-[linear-gradient(180deg,rgba(34,34,34,0.06)_0%,rgba(34,34,34,0.16)_100%),url('/placeholder.svg?height=900&width=700')] bg-cover bg-center shadow-[0_22px_65px_rgba(26,26,26,0.1)]" />
+              <div className="min-h-[220px] rounded-[2rem] border border-[#e8ded1] bg-[linear-gradient(180deg,rgba(250,248,246,0.15)_0%,rgba(250,248,246,0.65)_100%),url('/placeholder.svg?height=900&width=700')] bg-cover bg-center" />
+              <div className={`col-span-2 min-h-[145px] rounded-[2rem] p-6 ${ui.panel}`}>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#7b736d]">Collection note</p>
+                <p className="mt-3 max-w-xl text-sm leading-7 text-[#5c5652]">
+                  Browse for visuals the way people browse finished sessions and featured albums: larger covers, softer chrome, and faster visual scanning.
+                </p>
+              </div>
             </div>
           </section>
         ) : null}
@@ -162,11 +176,23 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
         {layoutKey === 'profile-creator' || layoutKey === 'profile-business' ? (
           <section className={`mb-12 rounded-[2.2rem] p-8 shadow-[0_24px_70px_rgba(15,23,42,0.1)] ${ui.panel}`}>
             <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-              <div className={`min-h-[240px] rounded-[2rem] ${ui.soft}`} />
+              <div className="relative min-h-[260px] overflow-hidden rounded-[2rem] border border-[#e8ded1] bg-[radial-gradient(circle_at_top_left,rgba(176,141,68,0.14),transparent_35%),linear-gradient(180deg,#faf8f6_0%,#f2ece7_100%)] p-6">
+                <div className="absolute left-6 top-6 h-16 w-16 rounded-[1.5rem] border border-white/70 bg-white shadow-[0_14px_35px_rgba(26,26,26,0.08)]" />
+                <div className="absolute left-24 top-14 h-24 w-24 rounded-full border border-white/70 bg-[#e8ded1]" />
+                <div className="absolute bottom-6 left-6 right-6 rounded-[1.5rem] border border-white/80 bg-white/85 p-5 backdrop-blur-sm">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#7b736d]">Identity-led cards</p>
+                  <p className="mt-2 text-sm leading-7 text-[#5c5652]">Profiles now present as people and brands first, not as generic posts with a thumbnail.</p>
+                </div>
+              </div>
               <div>
                 <p className={`text-xs uppercase tracking-[0.3em] ${ui.muted}`}>{taskConfig?.label || task}</p>
-                <h1 className="mt-3 text-4xl font-semibold tracking-[-0.05em] text-[#1a1a1a]">Profiles with stronger identity, trust, and reputation cues.</h1>
-                <p className={`mt-5 max-w-2xl text-sm leading-8 ${ui.muted}`}>This layout prioritizes the person or business surface first, then lets the feed continue below without borrowing the same visual logic used by articles or listings.</p>
+                <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-[-0.05em] text-[#1a1a1a]">Profiles with stronger identity, trust, and reputation cues.</h1>
+                <p className={`mt-5 max-w-2xl text-sm leading-8 ${ui.muted}`}>This layout pulls inspiration from polished client and creator directories, giving every profile a clearer avatar moment, cleaner metadata grouping, and a more credible first impression.</p>
+                <div className="mt-6 flex flex-wrap gap-3 text-xs uppercase tracking-[0.22em] text-[#7b736d]">
+                  <span className="rounded-full border border-[#e5ddd4] bg-white px-4 py-2">Brand-first cards</span>
+                  <span className="rounded-full border border-[#e5ddd4] bg-white px-4 py-2">Stronger trust cues</span>
+                  <span className="rounded-full border border-[#e5ddd4] bg-white px-4 py-2">Cleaner profile previews</span>
+                </div>
               </div>
             </div>
           </section>
