@@ -69,6 +69,7 @@ export default async function SearchPage({
   });
 
   const results = normalized.length > 0 ? filtered : filtered.slice(0, 24);
+  const uiResults = results.filter((post) => getPostTaskKey(post) !== "profile");
 
   return (
     <PageShell
@@ -76,8 +77,8 @@ export default async function SearchPage({
       title="Search"
       description={
         query
-          ? `Results for "${query}" across galleries, profiles, and visual posts.`
-          : 'Browse fresh imagery and creator profiles with the same calm layout as the homepage.'
+          ? `Results for "${query}" across galleries and visual posts.`
+          : "Browse fresh imagery with the same calm layout as the homepage."
       }
       actions={
         <form action="/search" className="flex w-full gap-2 sm:w-auto">
@@ -99,9 +100,9 @@ export default async function SearchPage({
         </form>
       }
     >
-      {results.length ? (
+      {uiResults.length ? (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {results.map((post) => {
+          {uiResults.map((post) => {
             const task = getPostTaskKey(post);
             const href = task ? buildPostUrl(task, post.slug) : `/posts/${post.slug}`;
             return <TaskPostCard key={post.id} post={post} href={href} />;

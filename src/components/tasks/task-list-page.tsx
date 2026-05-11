@@ -160,15 +160,20 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
                 <span className="rounded-full border border-[#e5ddd4] bg-white px-4 py-2">Cleaner detail rhythm</span>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="min-h-[280px] rounded-[2rem] border border-[#e5ddd4] bg-[linear-gradient(180deg,rgba(34,34,34,0.06)_0%,rgba(34,34,34,0.16)_100%),url('/placeholder.svg?height=900&width=700')] bg-cover bg-center shadow-[0_22px_65px_rgba(26,26,26,0.1)]" />
-              <div className="min-h-[220px] rounded-[2rem] border border-[#e8ded1] bg-[linear-gradient(180deg,rgba(250,248,246,0.15)_0%,rgba(250,248,246,0.65)_100%),url('/placeholder.svg?height=900&width=700')] bg-cover bg-center" />
-              <div className={`col-span-2 min-h-[145px] rounded-[2rem] p-6 ${ui.panel}`}>
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#7b736d]">Collection note</p>
-                <p className="mt-3 max-w-xl text-sm leading-7 text-[#5c5652]">
-                  Browse for visuals the way people browse finished sessions and featured albums: larger covers, softer chrome, and faster visual scanning.
-                </p>
-              </div>
+            <div className={`col-span-2 min-h-[145px] rounded-[2rem] p-6 ${ui.panel}`}>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#7b736d]">Collection note</p>
+              <p className="mt-3 max-w-xl text-sm leading-7 text-[#5c5652]">
+                Browse for visuals the way people browse finished sessions and featured albums: larger covers, softer chrome, and faster visual scanning.
+              </p>
+              <form className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center" action={taskConfig?.route || '#'}>
+                <select name="category" defaultValue={normalizedCategory} className={`h-11 flex-1 rounded-full px-4 text-sm ${ui.input}`}>
+                  <option value="all">All categories</option>
+                  {CATEGORY_OPTIONS.map((item) => (
+                    <option key={item.slug} value={item.slug}>{item.name}</option>
+                  ))}
+                </select>
+                <button type="submit" className={`h-11 rounded-full px-5 text-sm font-medium ${ui.button}`}>Apply filter</button>
+              </form>
             </div>
           </section>
         ) : null}

@@ -8,19 +8,27 @@ import { mockFaqs } from '@/data/mock-data'
 const topics = [
   {
     title: 'Getting started',
-    description: 'Create your account, complete your profile, and publish your first gallery or story in minutes.',
+    description: 'Set up your account, verify your email, and publish your first post with a clean step-by-step flow.',
   },
   {
-    title: 'Profiles & trust',
-    description: 'Add photos, hours, and social proof so visitors understand who you are before they reach out.',
+    title: 'Account & security',
+    description: 'Manage passwords, sign-in sessions, and recovery options to keep your account safe and accessible.',
   },
   {
     title: 'Discovery & search',
-    description: 'Use filters, categories, and saved collections to find the right places without endless scrolling.',
+    description: 'Use filters, categories, and search operators to find relevant content quickly without noisy results.',
   },
   {
-    title: 'Publishing visuals',
-    description: 'Best practices for image sizing, captions, and organizing sets so your work shines on every device.',
+    title: 'Publishing best practices',
+    description: 'Learn recommended image sizes, writing tips, and content structure so your posts look great on any screen.',
+  },
+  {
+    title: 'Policies & compliance',
+    description: 'Understand moderation standards, legal policies, and what to do if content or account issues come up.',
+  },
+  {
+    title: 'Billing & support',
+    description: 'Find answers about plans, invoices, refunds, and how to contact support with faster resolution details.',
   },
 ]
 
@@ -29,7 +37,7 @@ export default function HelpPage() {
     <PageShell
       eyebrow="Help"
       title="Help Center"
-      description="Straight answers about accounts, publishing, and discovery—written in plain language, with the same soft visual language as the rest of the site."
+      description="Straight answers about account setup, publishing, search, and policy questions in clear, practical language."
       actions={
         <Button asChild className="rounded-full bg-[#1B3022] text-[#faf8f6] hover:bg-[#243d2e]">
           <Link href="/contact">Contact support</Link>
