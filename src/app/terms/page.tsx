@@ -4,24 +4,44 @@ import { SITE_CONFIG } from '@/lib/site-config'
 
 const sections = [
   {
-    title: 'Using the service',
-    body: `By accessing ${SITE_CONFIG.name}, you agree to these terms and to any posted guidelines. You must provide accurate account information and keep credentials secure.`,
+    title: 'Acceptance of terms',
+    body: `By accessing or using ${SITE_CONFIG.name}, you agree to these Terms of Service and any product-specific guidelines posted in the app. If you do not agree, do not use the service.`,
   },
   {
-    title: 'Your content',
-    body: 'You retain rights to content you post. You grant us a license to host, display, and distribute that content as needed to operate and promote the platform.',
+    title: 'Accounts and eligibility',
+    body: 'You are responsible for account activity, safeguarding credentials, and providing accurate information. You must be legally able to enter this agreement in your jurisdiction.',
+  },
+  {
+    title: 'User content and license',
+    body: 'You retain ownership of content you submit. You grant us a limited, non-exclusive license to host, process, display, and distribute that content solely to operate, improve, and promote the service.',
   },
   {
     title: 'Acceptable use',
-    body: 'No harassment, hate speech, illegal activity, spam, or attempts to compromise security. We may remove content or suspend accounts that put the community at risk.',
+    body: 'You may not post unlawful content, infringing material, malware, spam, deceptive listings, or abusive content. We may remove content, limit distribution, or suspend accounts that violate these rules.',
   },
   {
-    title: 'Disclaimers & liability',
-    body: 'The service is provided "as is." To the fullest extent permitted by law, we are not liable for indirect damages or losses from reliance on user-submitted content.',
+    title: 'Moderation and enforcement',
+    body: 'We may investigate reports, remove content, or take account-level action when needed to protect users, platform integrity, and legal compliance.',
   },
   {
-    title: 'Changes',
-    body: 'We may update these terms and will post the new effective date here. Continued use after changes means you accept the updated terms.',
+    title: 'Third-party links and services',
+    body: 'The service may link to third-party websites or tools. We are not responsible for their content, terms, or privacy practices.',
+  },
+  {
+    title: 'Disclaimers and limitation of liability',
+    body: 'The service is provided "as is" and "as available." To the maximum extent permitted by law, we are not liable for indirect, incidental, or consequential damages arising from use of the platform.',
+  },
+  {
+    title: 'Termination',
+    body: 'You can stop using the service at any time. We may suspend or terminate access for serious or repeated violations, security threats, or legal obligations.',
+  },
+  {
+    title: 'Changes to terms',
+    body: 'We may update these terms periodically. Updated terms are effective when posted, and continued use after that date means you accept the revised terms.',
+  },
+  {
+    title: 'Contact',
+    body: 'For legal questions about these terms, contact us through the site contact page.',
   },
 ]
 
@@ -30,11 +50,11 @@ export default function TermsPage() {
     <PageShell
       eyebrow="Legal"
       title="Terms of Service"
-      description={`The rules for using ${SITE_CONFIG.name} with clarity and respect.`}
+      description={`The rules and responsibilities for using ${SITE_CONFIG.name}.`}
     >
       <Card className="border-[#e5ddd4] bg-white shadow-sm">
         <CardContent className="space-y-6 p-6 sm:p-8">
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-[#6b6560]">Effective · April 16, 2026</p>
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-[#6b6560]">Effective · May 11, 2026</p>
           <div className="space-y-4">
             {sections.map((section) => (
               <div key={section.title} className="rounded-[1.35rem] border border-[#e8ded1] bg-[#faf8f6] p-5">

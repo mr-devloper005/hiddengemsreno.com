@@ -5,7 +5,7 @@ export const siteContent = {
     tagline: '',
   },
   footer: {
-    tagline: 'Galleries, creators, and public profiles in one calm surface',
+    tagline: '',
   },
   hero: {
     /** Full-width hero photo in /public */
@@ -19,10 +19,6 @@ export const siteContent = {
     primaryCta: {
       label: 'Explore gallery',
       href: '/images',
-    },
-    secondaryCta: {
-      label: 'View profiles',
-      href: '/profile',
     },
     searchPlaceholder: 'Search creators, images, and visual posts',
     focusLabel: 'Focus',
@@ -64,10 +60,6 @@ export const siteContent = {
     primaryLink: {
       label: 'Open gallery',
       href: '/images',
-    },
-    secondaryLink: {
-      label: 'Meet creators',
-      href: '/profile',
     },
   },
   cta: {
@@ -133,7 +125,6 @@ export const taskIntroCopy: Record<
     links: [
       { label: 'Read articles', href: '/articles' },
       { label: 'Explore classifieds', href: '/classifieds' },
-      { label: 'View profiles', href: '/profile' },
     ],
   },
   article: {
@@ -159,7 +150,6 @@ export const taskIntroCopy: Record<
     links: [
       { label: 'Business listings', href: '/listings' },
       { label: 'Read articles', href: '/articles' },
-      { label: 'View profiles', href: '/profile' },
     ],
   },
   image: {
@@ -171,7 +161,6 @@ export const taskIntroCopy: Record<
     ],
     links: [
       { label: 'Browse gallery', href: '/images' },
-      { label: 'Explore profiles', href: '/profile' },
       { label: 'Search visuals', href: '/search' },
     ],
   },
@@ -211,7 +200,6 @@ export const taskIntroCopy: Record<
     links: [
       { label: 'Read articles', href: '/articles' },
       { label: 'See listings', href: '/listings' },
-      { label: 'Explore profiles', href: '/profile' },
     ],
   },
   social: {
