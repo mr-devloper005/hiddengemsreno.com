@@ -330,7 +330,6 @@ export function Navbar() {
               { label: 'Photography', href: '/images' },
               { label: 'Illustration', href: '/images' },
               { label: 'UI & product', href: '/images' },
-              { label: 'Creators', href: '/profile' },
             ].map((pill) => {
               const active = pathname === pill.href || pathname.startsWith(`${pill.href}/`)
               return (
